@@ -14,7 +14,8 @@ pnpm-lock.yaml
 .env.development
 .env.production
 .env.test
-
+nanded-app-firebase-adminsdk-fbsvc-de7919b4fa.json
+serviceAccountKey.json
 # Logs
 logs/
 *.log
