@@ -39,31 +39,69 @@ const signUpUser = async (req, res) => {
     }
 };
 
+// const login = async (req, res) => {
+
+// const phone = req.body.phone;
+
+   
+//     try {
+   
+
+//         const userdata = await userModel.findOne({number:phone})
+// if(userdata==null){
+
+//        const newUser = new userModel({ number: phone });
+
+//         await newUser.save();}
+//         if (userdata) {
+            
+//             const token = jwt.sign({ phone }, process.env.SECRET_KEY, { expiresIn: '30d' })
+//             res.cookie("authToken", token, { maxAge: 2592000000, httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", });
+//             return res.status(201).json({ success: true, message: "Logged In successfully", data: "token send" });
+//         } else {
+//             return res.status(500).json({ success: false, message: "No user found", data: null });
+//         }
+    
+//     } catch (err) {
+//         console.error("Login Error:", err);
+//         return res.status(500).json({ success: false, message: "Server error", data: null });
+//     }
+// }
+
 const login = async (req, res) => {
+  const phone = req.body.phone;
 
-let phone = req.body.phone;
-phone= `+91${phone}`
-    console.log("working tilldsf00000000000000000000000000 here");
-    try {
-   
+  try {
+    // Step 1: Search for user by phone number
+    let userdata = await userModel.findOne({ number: phone });
 
-        const userdata = await userModel.findOne({ number: phone });
-console.log(userdata)
-   
-
-        if (userdata) {
-            const token = jwt.sign({ phone }, process.env.SECRET_KEY, { expiresIn: '30d' })
-            res.cookie("authToken", token, { maxAge: 2592000000, httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax", path: "/", });
-            return res.status(201).json({ success: true, message: "Logged In successfully", data: "token send" });
-        } else {
-            return res.status(500).json({ success: false, message: "No user found", data: null });
-        }
-
-    } catch (err) {
-        console.error("Login Error:", err);
-        return res.status(500).json({ success: false, message: "Server error", data: null });
+    // Step 2: If not found, create new user and save
+    if (!userdata) {
+      const newUser = new userModel({ number: phone });
+      userdata = await newUser.save();
     }
-}
+
+    // Step 3: If user found or created, generate token and respond
+    if (userdata) {
+      const token = jwt.sign({ phone }, process.env.SECRET_KEY, { expiresIn: '30d' });
+      res.cookie("authToken", token, {
+        maxAge: 2592000000,
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+      });
+      return res.status(201).json({ success: true, message: "Logged In successfully", data: "token sent" });
+    } else {
+      // This case should rarely happen but handle just in case
+      return res.status(500).json({ success: false, message: "No user found", data: null });
+    }
+  } catch (err) {
+    console.error("Login Error:", err);
+    return res.status(500).json({ success: false, message: "Server error", data: null });
+  }
+};
+
 
 const otpgenerater = async (req, res) => {
 

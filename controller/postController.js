@@ -30,7 +30,7 @@ const jobpostget = async (req, res) => {
 
 const jobpostlimitget = async (req, res) => {
   try {
-    const jobdata = await jobModel.find().sort({ createdAt: -1 }).limit(4);
+    const jobdata = await jobModel.find().sort({ createdAt: -1 }).limit(6);
 
     res.send({ data: jobdata, message: "data fetched succssfully", success: true });
 
