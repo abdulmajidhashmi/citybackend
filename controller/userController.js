@@ -31,7 +31,7 @@ const signUpUser = async (req, res) => {
             path: "/",
         });
 
-        return res.status(201).json({ success: true, message: "User created successfully", data: {role:role} });
+        return res.status(201).json({ success: true, message: "User created successfully", data: {tokensafety:"authTokenSecure",role:role} });
 
     } catch (err) {
         console.error("Signup Error:", err);
@@ -91,7 +91,7 @@ const login = async (req, res) => {
         sameSite: "lax",
         path: "/",
       });
-      return res.status(201).json({ success: true, message: "Logged In successfully", data: "token sent" });
+      return res.status(201).json({ success: true, message: "Logged In successfully", data:"authTokensafety" });
     } else {
       // This case should rarely happen but handle just in case
       return res.status(500).json({ success: false, message: "No user found", data: null });

@@ -1,10 +1,23 @@
 const jobModel = require("../model/jobModel");
 
+
 const jobpost = async (req, res) => {
+
+
+    const tokenPhoneNumber = req.user.phone;
+
+
+    
   const { type, jobType, companyName, category, description, minSalary, maxSalary, location, title, experience, requirement } = req.body
   try {
+
+
+        
+
+    const verified=false;
     const jobdata = await new jobModel({
-      type, jobType, companyName, category, description, minSalary, maxSalary, location, title, experience, requirement
+      tokenPhoneNumber,
+      type, jobType, companyName, category, description, minSalary, maxSalary, location, title, experience, requirement,verified
     })
     jobdata.save();
 
@@ -18,7 +31,7 @@ const jobpost = async (req, res) => {
 
 const jobpostget = async (req, res) => {
   try {
-    const jobdata = await jobModel.find().sort({ createdAt: -1 });
+    const jobdata = await jobModel.find({verified:true}).sort({ createdAt: -1 });
 
     res.send({ data: jobdata, message: "data fetched succssfully", success: true });
 
@@ -30,7 +43,7 @@ const jobpostget = async (req, res) => {
 
 const jobpostlimitget = async (req, res) => {
   try {
-    const jobdata = await jobModel.find().sort({ createdAt: -1 }).limit(6);
+    const jobdata = await jobModel.find({verified:true}).sort({ createdAt: -1 }).limit(6);
 
     res.send({ data: jobdata, message: "data fetched succssfully", success: true });
 
@@ -44,7 +57,7 @@ const jobpostviewsingle = async (req, res) => {
 
   const id=req.params.id;
   try {
-    const jobdata = await jobModel.findById(id);
+    const jobdata = await jobModel.findById({id,verfied:true});
 
     res.send({ data: jobdata, message: "data fetched succssfully", success: true });
 

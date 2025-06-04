@@ -6,6 +6,7 @@ const userRouter = require("./route/userRoute");
 const cookie = require('cookie-parser');
 connectdb();
 
+
 const cors = require('cors');
 const postRouter = require("./route/postRouter");
 app.use(cors({
@@ -15,9 +16,9 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
+
+
 app.use(cookie());
-
-
 
 const PORT =process.env.PORT;
 app.use('/api/user',userRouter);

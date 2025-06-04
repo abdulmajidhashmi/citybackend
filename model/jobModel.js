@@ -7,7 +7,7 @@ const jobschema  =mongoose.Schema({
         type:String,
     },
     category:{
-        required:true,
+   
         type:String,
     },
     title:{
@@ -42,6 +42,14 @@ const jobschema  =mongoose.Schema({
         type:String,
     },
     companyName:{
+        required:true,
+        type:String
+    },
+    verified:{
+        required:true,
+        type:String
+    },
+    tokenPhoneNumber:{
         required:true,
         type:String
     }
