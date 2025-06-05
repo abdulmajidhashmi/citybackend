@@ -31,7 +31,7 @@ const jobpost = async (req, res) => {
 
 const jobpostget = async (req, res) => {
   try {
-    const jobdata = await jobModel.find({verified:true}).sort({ createdAt: -1 });
+    const jobdata = await jobModel.find({verified:"true"}).sort({ createdAt: -1 });
 
     res.send({ data: jobdata, message: "data fetched succssfully", success: true });
 
@@ -43,7 +43,7 @@ const jobpostget = async (req, res) => {
 
 const jobpostlimitget = async (req, res) => {
   try {
-    const jobdata = await jobModel.find({verified:true}).sort({ createdAt: -1 }).limit(6);
+    const jobdata = await jobModel.find({verified:"true"}).sort({ createdAt: -1 }).limit(6);
 
     res.send({ data: jobdata, message: "data fetched succssfully", success: true });
 
@@ -57,7 +57,8 @@ const jobpostviewsingle = async (req, res) => {
 
   const id=req.params.id;
   try {
-    const jobdata = await jobModel.findById({id,verfied:true});
+  const jobdata = await jobModel.findOne({ _id: id, verified: "true" });
+
 
     res.send({ data: jobdata, message: "data fetched succssfully", success: true });
 
