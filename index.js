@@ -9,6 +9,7 @@ connectdb();
 
 const cors = require('cors');
 const postRouter = require("./route/postRouter");
+const adminRouter = require("./route/adminRoute");
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true,
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(cookie());
 
 const PORT =process.env.PORT;
+app.use('/api/majidlogin',adminRouter)
 app.use('/api/user',userRouter);
 app.use('/api/post',postRouter);
 app.get('/api',(req,res)=>{

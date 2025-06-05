@@ -78,6 +78,7 @@ const login = async (req, res) => {
     // Step 2: If not found, create new user and save
     if (!userdata) {
       const newUser = new userModel({ number: phone });
+     
       userdata = await newUser.save();
     }
 

@@ -7,4 +7,5 @@ userRouter.post('/otp',otpgenerater);
 userRouter.post('/verifyotp',verifyotp);
 userRouter.post('/verifyotplogin',verifyotplogin);
 
+
 module.exports = userRouter;
